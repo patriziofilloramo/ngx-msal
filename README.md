@@ -1,6 +1,7 @@
 # Ngx-Msal
 
-Important: 
+**Important**: 
+ 
 This is an Angular wrapper of the [Msal JavaScript authentication library](https://github.com/AzureAD/microsoft-authentication-library-for-js) created for enabling the usage of Msal.js library v1.2 also for Angular >6 apps. I created it in my free time, I cannot promise to regular maintain it. :-)
 
 The original Msal.js library is created by Microsoft, their official Angular wrapper currently is not supporting Angular 6 or higher.
