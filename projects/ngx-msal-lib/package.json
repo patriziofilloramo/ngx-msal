@@ -1,0 +1,25 @@
+{
+  "name": "ngx-msal",
+  "version": "7.0.0",
+  "author": {
+    "name": "Patrizio Filloramo",
+    "email": "patrizio.filloramo.work@gmail.com"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "GIT",
+    "url": "ttps://github.com/patriziofilloramo/ngx-msal.git"
+  },
+  "keywords": [
+    "angular","msal","AAD","oauth"
+  ],
+  "peerDependencies": {
+    "@angular/common": "^7.2.0",
+    "@angular/core": "^7.2.0",
+    "rxjs": "^6.3.3"
+  },
+  "dependencies": {
+    "msal": "^1.2.0",
+    "tslib": "^1.9.3"
+  }
+}

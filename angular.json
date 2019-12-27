@@ -2,5 +2,142 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "newProjectRoot": "projects",
-  "projects": {}
+  "projects": {
+    "ngx-msal": {
+      "root": "projects/ngx-msal-lib",
+      "sourceRoot": "projects/ngx-msal-lib/src",
+      "projectType": "library",
+      "prefix": "ngx-msal",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ngx-msal-lib/tsconfig.lib.json",
+            "project": "projects/ngx-msal-lib/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngx-msal-lib/src/test.ts",
+            "tsConfig": "projects/ngx-msal-lib/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-msal-lib/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ngx-msal-lib/tsconfig.lib.json",
+              "projects/ngx-msal-lib/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "ngx-msal-showcase": {
+      "root": "projects/ngx-msal-showcase/",
+      "sourceRoot": "projects/ngx-msal-showcase/src",
+      "projectType": "application",
+      "prefix": "app",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/ngx-msal-showcase",
+            "index": "projects/ngx-msal-showcase/src/index.html",
+            "main": "projects/ngx-msal-showcase/src/main.ts",
+            "polyfills": "projects/ngx-msal-showcase/src/polyfills.ts",
+            "tsConfig": "projects/ngx-msal-showcase/tsconfig.app.json",
+            "assets": [
+              "projects/ngx-msal-showcase/src/favicon.ico",
+              "projects/ngx-msal-showcase/src/assets"
+            ],
+            "styles": [
+              "projects/ngx-msal-showcase/src/styles.css"
+            ],
+            "scripts": [],
+            "es5BrowserSupport": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/ngx-msal-showcase/src/environments/environment.ts",
+                  "with": "projects/ngx-msal-showcase/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "ngx-msal-showcase:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "ngx-msal-showcase:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "ngx-msal-showcase:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngx-msal-showcase/src/test.ts",
+            "polyfills": "projects/ngx-msal-showcase/src/polyfills.ts",
+            "tsConfig": "projects/ngx-msal-showcase/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-msal-showcase/karma.conf.js",
+            "styles": [
+              "projects/ngx-msal-showcase/src/styles.css"
+            ],
+            "scripts": [],
+            "assets": [
+              "projects/ngx-msal-showcase/src/favicon.ico",
+              "projects/ngx-msal-showcase/src/assets"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ngx-msal-showcase/tsconfig.app.json",
+              "projects/ngx-msal-showcase/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "ngx-msal"
 }

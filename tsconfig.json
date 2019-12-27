@@ -17,6 +17,17 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "ngx-msal-lib": [
+        "dist/ngx-msal-lib"
+      ],
+      "ngx-msal-lib/*": [
+        "dist/ngx-msal-lib/*"
+      ],
+      "msal": [
+        "./node_modules/msal/*"
+      ]
+    }
   }
 }
