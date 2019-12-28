@@ -1,25 +1,26 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
-import { AuthResponse, AuthError } from "msal";
+import { AuthError, AuthResponse } from "msal";
 import { from } from "rxjs";
 import { Observable } from "rxjs/internal/Observable";
 import { mergeMap } from 'rxjs/operators';
-import { NgxMsalConfig, NGX_MSAL_CONFIG } from './ngx-msal.config';
+
+import { NGX_MSAL_CONFIG, NgxMsalConfig } from './ngx-msal.config';
 import { MsalService } from './ngx-msal.service';
 
-
-
 @Injectable({ providedIn: "root" })
-export class NgxMsalInterceptor implements HttpInterceptor {
+export class MsalInterceptor implements HttpInterceptor {
   constructor(
     private _msalSvc: MsalService,
-    @Inject(NGX_MSAL_CONFIG) private cockpitConfig: NgxMsalConfig
+    @Inject(NGX_MSAL_CONFIG) private msalConfig: NgxMsalConfig
   ) {}
 
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
+    if(!req) return next.handle(req);
+    
     var scopes = this.getScopesForEndpoint(req.url);
     /**
      * if no scopes are found then the resource is not protected.
@@ -36,7 +37,7 @@ export class NgxMsalInterceptor implements HttpInterceptor {
 
   private getScopesForEndpoint(url: string) {
     var scopes = [];
-    var framework = this.cockpitConfig.config.framework;
+    var framework = this.msalConfig.config.framework;
 
     if (framework.protectedResourceMap.length > 0) {
       framework.protectedResourceMap.forEach(key => {
@@ -65,7 +66,7 @@ export class NgxMsalInterceptor implements HttpInterceptor {
         this.getHostFromUrl(this._msalSvc.getRedirectUri())
       ) {
         scopes.push([
-          this.cockpitConfig.config.auth.clientId
+          this.msalConfig.config.auth.clientId
         ]);
       }
     } else {
@@ -74,7 +75,7 @@ export class NgxMsalInterceptor implements HttpInterceptor {
        * if it's relative call, we'll treat it as app backend call.
        */
       scopes.push([
-        this.cockpitConfig.config.auth.clientId
+        this.msalConfig.config.auth.clientId
       ]);
     }
 

@@ -1,6 +1,6 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { NgxMsalInterceptor } from './ngx-msal.interceptor';
+import { MsalInterceptor } from './ngx-msal.interceptor';
 import { NgxMsalConfig, NGX_MSAL_CONFIG } from './ngx-msal.config';
 
 @NgModule({
@@ -10,7 +10,7 @@ import { NgxMsalConfig, NGX_MSAL_CONFIG } from './ngx-msal.config';
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: NgxMsalInterceptor,
+      useClass: MsalInterceptor,
       multi: true
    },
   ],

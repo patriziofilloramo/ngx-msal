@@ -13,9 +13,9 @@ export class MsalGuard implements CanActivate {
 
     constructor( 
         private _msalSvc: MsalService,
-        @Inject(NGX_MSAL_CONFIG) private cockpitConfig: NgxMsalConfig) 
+        @Inject(NGX_MSAL_CONFIG) private msalConfig: NgxMsalConfig) 
     {
-        this._msalConfig = this.cockpitConfig.config;
+        this._msalConfig = this.msalConfig.config;
         this._requestAuthParams = {
             scopes: this._msalConfig.framework.consentScopes,
             extraQueryParameters: this._msalConfig.framework.extraQueryParameters
