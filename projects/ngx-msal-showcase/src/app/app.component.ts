@@ -11,7 +11,7 @@ import { AppService } from './app.service';
 export class AppComponent implements OnInit, OnDestroy {
 
   private _subscriptions: Subscription = new Subscription();
-  public account: Account
+  public account: Account;
 
   constructor(
     private _msalSvc: MsalService,

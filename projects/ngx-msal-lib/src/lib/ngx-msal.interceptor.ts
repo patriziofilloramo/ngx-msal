@@ -19,9 +19,12 @@ export class MsalInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    if(!req) return next.handle(req);
     
-    var scopes = this.getScopesForEndpoint(req.url);
+    var scopes = [];
+    if(req) {
+      scopes = this.getScopesForEndpoint(req.url);
+    }
+    
     /**
      * if no scopes are found then the resource is not protected.
      * Therefore no token needs to be attached to the request
