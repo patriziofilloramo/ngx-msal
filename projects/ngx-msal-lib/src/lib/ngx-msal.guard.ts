@@ -1,7 +1,8 @@
 import { Inject, Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot } from "@angular/router";
-import { NGX_MSAL_CONFIG, NgxMsalConfig, MsalConfiguration } from './ngx-msal.config';
-import { AuthError, AuthResponse, AuthenticationParameters } from 'msal';
+import { AuthenticationParameters, AuthError, AuthResponse } from 'msal';
+
+import { MsalConfiguration, NGX_MSAL_CONFIG, NgxMsalConfig } from './ngx-msal.config';
 import { MsalService } from './ngx-msal.service';
 
 @Injectable({
@@ -36,8 +37,11 @@ export class MsalGuard implements CanActivate {
                 }
             }
         else {
-            return this._msalSvc.acquireTokenSilent({ scopes: [this._msalConfig.auth.clientId]})
-                .then((result: AuthResponse) => {
+            return this._msalSvc.acquireTokenSilent({ 
+                scopes: [this._msalConfig.auth.clientId], 
+                authority: this._msalConfig.auth.authority
+            })
+            .then((result: AuthResponse) => {
                     return true;
                 })
                 .catch((error: AuthError) => {
