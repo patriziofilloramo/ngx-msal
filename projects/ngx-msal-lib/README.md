@@ -9,9 +9,9 @@ If your app runs Angular version 5 (or below) you may consider the [official Msa
 The Microsoft Authentication Library for JavaScript enables client-side JavaScript web applications, running in a web browser, to authenticate users using Azure AD for work and school accounts (AAD), Microsoft personal accounts (MSA), and social identity providers like Facebook, Google, LinkedIn, Microsoft accounts, etc. through Azure AD B2C service. It also enables your app to get tokens to access Microsoft Cloud services such as Microsoft Graph.
 
 ## Installation
-The msal-angular package is available on NPM:
+The ngx-msal package is available on NPM:
 
-`npm install @ngx-angular --save`
+`npm install ngx-msal --save`
 
 ## Usage
 
@@ -93,14 +93,12 @@ this.broadcastSvc.subscribe("msal:acquireTokenFailure", (error: AuthError) => {
 ```js
  private subscription: Subscription;
 
- this.subscription=  this.broadcastSvc.subscribe("msal:acquireTokenFailure", (payload) => {
- });
+ this.subscription.add(this.broadcastSvc.subscribe("msal:acquireTokenFailure", (payload) => {
+ }));
 
  ngOnDestroy() {
     this.broadcastSvc.getMSALSubject().next(1);
-    if(this.subscription) {
-      this.subscription.unsubscribe();
-    }
+    this.subscription.unsubscribe();
   }
 ```
 
