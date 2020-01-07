@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Account, AuthError, AuthResponse, BroadcastService, MsalService } from 'ngx-msal-lib';
 import { Subscription } from 'rxjs/internal/Subscription';
+
 import { environment } from '../environments/environment';
 import { AppService } from './app.service';
 
@@ -49,6 +50,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this._subscriptions.add(
       this._broadcastSvc.subscribe("msal:acquireTokenFailure", (error: AuthError) => {
         console.log('acquire token failure. Response: ', error.errorMessage);
+        this._msalSvc.signInRedirect();
       })
     );
   }
