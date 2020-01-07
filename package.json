@@ -11,6 +11,7 @@
   },
   "version": "0.0.1",
   "keywords": [
+    "ngx-msal",
     "angular",
     "msal",
     "AAD",
