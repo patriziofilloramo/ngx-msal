@@ -52,6 +52,11 @@ export class MsalGuard implements CanActivate {
                     if (error && error.errorCode && error.errorCode !== 'block_token_requests') {
                         console.error('MsalGuard - Acquire token silent error. Error code:', error.errorCode);                  
                     }
+
+                    /* workaround: multiple instance running together at the same time may have create
+                    duplicated localstorage token entries with the same values. We can ignore it. */
+                    if (error.errorCode === 'multiple_matching_tokens') return true;
+                    
                     return false;
                 });
         }
