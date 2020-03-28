@@ -2,6 +2,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { MsalConfiguration, MsalModule } from 'ngx-msal-lib';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MainComponent } from './components/main/main.component';
@@ -13,22 +14,26 @@ const isIE =
 
 export const msalConfig: MsalConfiguration = {
   auth: {
-    clientId: "YOUR_AZUREAPP_CLIENT_ID_HERE",
+    // clientId: "YOUR_AZUREAPP_CLIENT_ID_HERE",
+    // authority:
+    //   "https://login.microsoftonline.com/XXXXXXXXXXX",
+    clientId: "aaf3f968-94f2-454f-9d58-aa4571e1c880",
     authority:
-      "https://login.microsoftonline.com/XXXXXXXXXXX",
+      "https://login.microsoftonline.com/scientificnet.onmicrosoft.com/",
     validateAuthority: true,
-    redirectUri: window.location.toString(),
+    // redirectUri: 'https://localhost:4200/#/redirect',
     navigateToLoginRequestUrl: true
   },
   cache: {
     cacheLocation: "localStorage" as any,
-    storeAuthStateInCookie: isIE
+    storeAuthStateInCookie: true
   },
   framework: {
-    popUp: !isIE,
+    popUp: false,
     protectedResourceMap: [["https://graph.microsoft.com", ["User.Read"]]],
     unprotectedResources: [],
-    consentScopes: ["User.Read"]
+    consentScopes: ["User.Read"],
+    
   }
 };
 

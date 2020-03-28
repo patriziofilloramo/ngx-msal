@@ -32,7 +32,15 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    this._msalSvc.handleRedirectCallback(this.authRedirectCallBack);
+    // this._msalSvc.handleRedirectCallback(this.authRedirectCallBack);
+    this._msalSvc.handleRedirectCallback((redirectError: AuthError, redirectResponse: AuthResponse) => {
+      if (redirectError) {
+        console.error("Redirect error: ", redirectError);
+        return;
+      }
+
+      console.log("Redirect success: ", redirectResponse);
+    });
 
     this._subscriptions.add(
       this._broadcastSvc.subscribe("msal:loginSuccess", (response: AuthResponse) => {
