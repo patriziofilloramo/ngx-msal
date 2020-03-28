@@ -1,6 +1,6 @@
 {
   "name": "ngx-msal",
-  "version": "7.0.3",
+  "version": "7.0.5",
   "author": {
     "name": "Patrizio Filloramo",
     "email": "patrizio.filloramo.work@gmail.com"
@@ -11,7 +11,7 @@
     "url": "https://github.com/patriziofilloramo/ngx-msal.git"
   },
   "keywords": [
-    "ngx-msal",    
+    "ngx-msal",
     "angular",
     "msal",
     "AAD",
