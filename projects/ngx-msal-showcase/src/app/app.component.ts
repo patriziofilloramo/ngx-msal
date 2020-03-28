@@ -20,11 +20,11 @@ export class AppComponent implements OnInit, OnDestroy {
     private _appSvc: AppService) {
      this.account = this._msalSvc.getAccount();
 
-     /**
-      * with the "!isCallbackOrIframe()" we avoid unwanted calls 
-      * when the code execution is inside callbacks or iframe
-      * */ 
-     if(this.account && !this.isCallbackOrIframe()) {
+    /**
+     * with the "!isCallbackOrIframe()" we avoid unwanted calls
+     * when the code execution is inside callbacks or iframe
+     */
+     if (this.account && !this.isCallbackOrIframe()) {
        this._appSvc.getUserData();
      }
   }
@@ -32,31 +32,23 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    // this._msalSvc.handleRedirectCallback(this.authRedirectCallBack);
-    this._msalSvc.handleRedirectCallback((redirectError: AuthError, redirectResponse: AuthResponse) => {
-      if (redirectError) {
-        console.error("Redirect error: ", redirectError);
-        return;
-      }
-
-      console.log("Redirect success: ", redirectResponse);
-    });
+    this._msalSvc.handleRedirectCallback(this.authRedirectCallBack);
 
     this._subscriptions.add(
-      this._broadcastSvc.subscribe("msal:loginSuccess", (response: AuthResponse) => {
+      this._broadcastSvc.subscribe('msal:loginSuccess', (response: AuthResponse) => {
         console.log('login success. Response: ', response);
         this._appSvc.getUserData();
       })
     );
 
     this._subscriptions.add(
-      this._broadcastSvc.subscribe("msal:loginFailure", (error: AuthError) => {
+      this._broadcastSvc.subscribe('msal:loginFailure', (error: AuthError) => {
         console.log('login failure. Response: ', error.errorMessage);
       })
     );
 
     this._subscriptions.add(
-      this._broadcastSvc.subscribe("msal:acquireTokenFailure", (error: AuthError) => {
+      this._broadcastSvc.subscribe('msal:acquireTokenFailure', (error: AuthError) => {
         console.log('acquire token failure. Response: ', error.errorMessage);
         this._msalSvc.signInRedirect();
       })
@@ -67,19 +59,19 @@ export class AppComponent implements OnInit, OnDestroy {
   private authRedirectCallBack(error: AuthError, response: AuthResponse) {
 
     if (error) {
-      console.log("authRedirectCall Error: ", error);
+      console.log('authRedirectCall Error: ', error);
     } else {
-      if (response.tokenType === "id_token") {
-        console.log("authRedirectCall ID_TOKEN: ", response);
-      } else if (response.tokenType === "access_token") {
-        console.log("authRedirectCall ACCESS_TOKEN: ", response);
+      if (response.tokenType === 'id_token') {
+        console.log('authRedirectCall ID_TOKEN: ', response);
+      } else if (response.tokenType === 'access_token') {
+        console.log('authRedirectCall ACCESS_TOKEN: ', response);
       }
     }
   }
 
   public isCallbackOrIframe(): boolean {
     const iframe = window != window.parent && !window.opener;
-    const callback = this._msalSvc.isCallback(window.location.hash)
+    const callback = this._msalSvc.isCallback(window.location.hash);
     if (environment.isIE) {
       return ( iframe || callback);
     } else {
