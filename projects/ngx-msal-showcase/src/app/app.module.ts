@@ -16,7 +16,7 @@ export const msalConfig: MsalConfiguration = {
   auth: {
     clientId: 'YOUR_AZUREAPP_CLIENT_ID_HERE',
     authority: 'https://login.microsoftonline.com/XXXXXXXXXXX',
-    validateAuthority: true,
+validateAuthority: true,
     // redirectUri: 'https://localhost:4200/#/redirect',
     navigateToLoginRequestUrl: true
   },
@@ -28,7 +28,7 @@ export const msalConfig: MsalConfiguration = {
     popUp: false,
     protectedResourceMap: [['https://graph.microsoft.com', ['User.Read']]],
     unprotectedResources: [],
-    consentScopes: ['User.Read'],
+    consentScopes: ['User.Read', 'openid'],
 
   }
 };
@@ -43,9 +43,7 @@ export const msalConfig: MsalConfiguration = {
   imports: [
     BrowserModule,
     AppRoutingModule,
-    MsalModule.forRoot({
-      config: msalConfig,
-    }),
+    MsalModule.forRoot(msalConfig),
     HttpClientModule
   ],
   providers: [
