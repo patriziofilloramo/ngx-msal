@@ -8,17 +8,17 @@
   </nav>
 
   <div>
-    <div *ngIf="!appSvc.userData">
+    <div *ngIf="!appSvc?.userData">
       <p>You are NOT logged in.</p>
       <button (click)='login()'>LOGIN</button>
     </div>
 
-    <div *ngIf="appSvc.userData">
+    <div *ngIf="appSvc?.userData">
       <p>You are logged in.</p>
       <button (click)='logout()'>LOGOUT</button>
 
       <h2>
-        Hello {{appSvc.userData.displayName}}!
+        Hello {{appSvc?.userData?.displayName}}!
       </h2>
 
       <img width="300" alt="Angular Logo"

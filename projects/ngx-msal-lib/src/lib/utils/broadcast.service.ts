@@ -4,38 +4,34 @@ import { BehaviorSubject, Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 export type MessageCallback = (payload: any) => void;
 
-@Injectable(
-    { providedIn: 'root'}
-)
+@Injectable({ providedIn: 'root' })
 export class BroadcastService {
-    private _msalSubject : BehaviorSubject<any> ;
-    private _msalItem$:  Observable<any>;
+  private msalSubject: BehaviorSubject<any>;
+  private msalItem$: Observable<any>;
 
-    constructor()
-    {
-     this._msalSubject = new BehaviorSubject<any>(1);
-     this._msalItem$  = this._msalSubject.asObservable();
-    }
+  constructor() {
+    this.msalSubject = new BehaviorSubject<any>(1);
+    this.msalItem$ = this.msalSubject.asObservable();
+  }
 
-    broadcast(type: string ,payload: any) {
-        this._msalSubject.next({type , payload});
-    }
+  broadcast(type: string, payload: any) {
+    this.msalSubject.next({ type, payload });
+  }
 
-    getMSALSubject()
-    {
-        return this._msalSubject;
-    }
+  getMSALSubject() {
+    return this.msalSubject;
+  }
 
-    get_msalItem()
-    {
-        return this._msalItem$;
-    }
+  getmsalItem() {
+    return this.msalItem$;
+  }
 
-    subscribe(type: string, callback: MessageCallback): Subscription {
-        return this._msalItem$.pipe(
-            filter(message => message.type === type),
-            map(message => message.payload)
-        ).subscribe(callback);
-    }
-
+  subscribe(type: string, callback: MessageCallback): Subscription {
+    return this.msalItem$
+      .pipe(
+        filter((message) => message.type === type),
+        map((message) => message.payload)
+      )
+      .subscribe(callback);
+  }
 }

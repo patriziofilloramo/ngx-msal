@@ -1,4 +1,4 @@
-<div style="text-align:center">
+<div *ngIf="appSvc?.userData" style="text-align:center">
   <br>
 
   <nav>
@@ -9,15 +9,15 @@
 
   <h2> Your profile </h2>
   <p>
-    displayName: {{appSvc.userData.displayName}}
+    displayName: {{appSvc?.userData?.displayName}}
   </p>
   <p>
-    userPrincipalName: {{appSvc.userData.userPrincipalName}}
+    userPrincipalName: {{appSvc?.userData?.userPrincipalName}}
   </p>
   <p>
-    email: {{appSvc.userData.mail}}
+    email: {{appSvc?.userData?.mail}}
   </p>
   <p>
-    businessPhones: {{appSvc.userData.businessPhones}}
+    businessPhones: {{appSvc?.userData?.businessPhones}}
   </p>
 </div>

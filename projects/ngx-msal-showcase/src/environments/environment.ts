@@ -2,12 +2,12 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 const isIE =
-  window.navigator.userAgent.indexOf("MSIE ") > -1 ||
-  window.navigator.userAgent.indexOf("Trident/") > -1;
+  window.navigator.userAgent.indexOf('MSIE ') > -1 ||
+  window.navigator.userAgent.indexOf('Trident/') > -1;
 
 export const environment = {
   production: false,
-  isIE: isIE
+  isIE
 };
 
 /*

@@ -1,51 +1,45 @@
-import { Injectable, Inject } from "@angular/core";
+import { Injectable, Inject } from '@angular/core';
 import {
   UserAgentApplication,
   AuthenticationParameters,
   AuthResponse,
   AuthError
-} from "msal";
+} from 'msal';
 import {
   NGX_MSAL_CONFIG,
-  NgxMsalConfig,
   MsalConfiguration
-} from "./ngx-msal.config";
-import { BroadcastService } from "./utils/broadcast.service";
+} from './ngx-msal.config';
+import { BroadcastService } from './utils/broadcast.service';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class MsalService extends UserAgentApplication {
-  private _authconfig: MsalConfiguration;
-  private _requestAuthParams: AuthenticationParameters;
+  private requestAuthParams: AuthenticationParameters;
 
   constructor(
     @Inject(NGX_MSAL_CONFIG)
-    private _coreConfig: NgxMsalConfig,
-    private _broadcastSvc: BroadcastService
+    private coreConfig: MsalConfiguration,
+    private broadcastSvc: BroadcastService
   ) {
-    super(_coreConfig.config);
-    this._authconfig = _coreConfig.config;
-    this._requestAuthParams = {
-      scopes: this._authconfig.framework.consentScopes
+    super(coreConfig);
+    this.requestAuthParams = {
+      scopes: coreConfig.framework.consentScopes
     };
   }
 
-  /**
-   * Acquire token for the given scopes
-   * @param request { scopes : [xxxx] }
-   */
+
   public acquireTokenSilent(
     request: AuthenticationParameters
   ): Promise<AuthResponse> {
     return super
       .acquireTokenSilent(request)
       .then((authResponse: AuthResponse) => {
-        this._broadcastSvc.broadcast("msal:acquireTokenSuccess", authResponse);
+        this.broadcastSvc.broadcast('msal:acquireTokenSuccess', authResponse);
         return authResponse;
       })
       .catch((error: AuthError) => {
-        this._broadcastSvc.broadcast("msal:acquireTokenFailure", error);
+        this.broadcastSvc.broadcast('msal:acquireTokenFailure', error);
         throw error;
       });
   }
@@ -57,11 +51,11 @@ export class MsalService extends UserAgentApplication {
     return super
       .loginPopup(request)
       .then((authResponse: AuthResponse) => {
-        this._broadcastSvc.broadcast("msal:loginSuccess", authResponse);
+        this.broadcastSvc.broadcast('msal:loginSuccess', authResponse);
         return authResponse;
       })
       .catch((error: AuthError) => {
-        this._broadcastSvc.broadcast("msal:loginFailure", error);
+        this.broadcastSvc.broadcast('msal:loginFailure', error);
         throw error;
       });
   }
@@ -70,24 +64,24 @@ export class MsalService extends UserAgentApplication {
    * sign in with popup (non-ie) using consent scopes of the configuration
    */
   public signInPopup(): Promise<AuthResponse> {
-    return this.loginPopup(this._requestAuthParams);
+    return this.loginPopup(this.requestAuthParams);
   }
 
   /**
    * sign in with redirect using consent scopes of the configuration
    */
   public signInRedirect(): void {
-    this.loginRedirect(this._requestAuthParams);
+    this.loginRedirect(this.requestAuthParams);
   }
 
-    /**
-   * sign in 
+  /**
+   * sign in
    */
   public signIn(): Promise<AuthResponse> | void {
-    if(this._authconfig.framework.popUp) {
+    if (this.coreConfig.framework.popUp) {
       return this.loginPopup();
     } else {
-      this.loginRedirect(this._requestAuthParams);
+      this.loginRedirect(this.requestAuthParams);
     }
   }
 

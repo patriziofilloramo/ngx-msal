@@ -1,15 +1,16 @@
-import { HttpClient } from "@angular/common/http";
-import { Injectable, OnDestroy } from "@angular/core";
-import { Subscription } from "rxjs/internal/Subscription";
+import { HttpClient } from '@angular/common/http';
+import { Injectable, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs/internal/Subscription';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
-export class AppService implements OnDestroy{
+export class AppService implements OnDestroy {
 
+  // tslint:disable-next-line: variable-name
   private _userData;
-  private _subscriptions: Subscription = new Subscription();
-  private microsoftGraphUrl = "https://graph.microsoft.com/v1.0";
+  private subscriptions: Subscription = new Subscription();
+  private microsoftGraphUrl = 'https://graph.microsoft.com/v1.0';
 
   get userData(): any {
     return this._userData;
@@ -22,14 +23,14 @@ export class AppService implements OnDestroy{
   }
 
   getUserData() {
-    this._subscriptions.add(
+    this.subscriptions.add(
       this.httpSvc.get(`${this.microsoftGraphUrl}/me`).subscribe(
         data => {
           this.userData = data;
         },
         error => {
           console.error(
-            "Error while trying to get user data: ",
+            'Error while trying to get user data: ',
             JSON.stringify(error)
           );
         }
@@ -38,7 +39,7 @@ export class AppService implements OnDestroy{
   }
 
   ngOnDestroy(): void {
-    this._subscriptions.unsubscribe();
+    this.subscriptions.unsubscribe();
   }
 
 }

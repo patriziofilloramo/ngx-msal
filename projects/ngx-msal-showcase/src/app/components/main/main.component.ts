@@ -1,21 +1,21 @@
-import { Component, OnInit } from "@angular/core";
-import { MsalService, AuthResponse, AuthError } from "ngx-msal-lib";
-import { AppService } from "../../app.service";
+import { Component } from '@angular/core';
+import { MsalService, AuthResponse, AuthError } from 'ngx-msal-lib';
+import { AppService } from '../../app.service';
 
 @Component({
-  selector: "app-main",
-  templateUrl: "./main.component.html"
+  selector: 'app-main',
+  templateUrl: './main.component.html'
 })
 export class MainComponent {
-  public title = "Ngx-Msal Showcase";
+  public title = 'Ngx-Msal Showcase';
 
   constructor(
-    private _msalSvc: MsalService,
+    private msalSvc: MsalService,
     public appSvc: AppService
   ) {}
 
   login() {
-    this._msalSvc.signInPopup()
+    this.msalSvc.signInPopup()
     .then((response: AuthResponse) => {
       // do stuff afer logged in...
     })
@@ -25,7 +25,7 @@ export class MainComponent {
   }
 
   logout() {
-    this._msalSvc.logout();
+    this.msalSvc.logout();
   }
 
 }
