@@ -1,21 +1,10 @@
-import { Inject, Injectable } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  CanActivate,
-  RouterStateSnapshot,
-} from '@angular/router';
-import {
-  AuthenticationParameters,
-  AuthError,
-  AuthResponse,
-  InteractionRequiredAuthError,
-} from 'msal';
 import { Location } from '@angular/common';
-
+import { Inject, Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot } from '@angular/router';
+import { AuthenticationParameters, AuthError, InteractionRequiredAuthError } from 'msal';
 import { MsalConfiguration, NGX_MSAL_CONFIG } from './ngx-msal.config';
 import { MsalService } from './ngx-msal.service';
-import { WindowUtils } from 'msal/lib-commonjs/utils/WindowUtils';
-import { UrlUtils } from 'msal/lib-commonjs/utils/UrlUtils';
+
 
 @Injectable({
   providedIn: 'root',
@@ -66,10 +55,7 @@ export class MsalGuard implements CanActivate {
   private async loginInteractively(url: string) {
     if (this.msalConfig.framework.popUp) {
       return this.msalSvc
-        .loginPopup({
-          scopes: this.msalConfig.framework.consentScopes,
-          extraQueryParameters: this.msalConfig.framework.extraQueryParameters,
-        })
+        .loginPopup(this.requestAuthParams)
         .then(() => true)
         .catch(() => false);
     }
@@ -78,9 +64,7 @@ export class MsalGuard implements CanActivate {
 
     this.msalSvc.loginRedirect({
       redirectStartPage,
-      scopes: this.msalConfig.framework.consentScopes,
-      extraQueryParameters: this.msalConfig.framework.extraQueryParameters,
-    });
+      ...this.requestAuthParams});
   }
 
   canActivate(
@@ -90,8 +74,8 @@ export class MsalGuard implements CanActivate {
     // If a page with MSAL Guard is set as the redirect for acquireTokenSilent,
     // short-circuit to prevent redirecting or popups.
     if (
-      UrlUtils.urlContainsHash(window.location.hash) &&
-      WindowUtils.isInIframe()
+      this.msalSvc.urlContainsHash(window.location.hash) &&
+      window.parent !== window
     ) {
       return false;
     }
@@ -116,7 +100,6 @@ export class MsalGuard implements CanActivate {
           );
           return this.loginInteractively(state.url);
         }
-
 
         /**
          * "block_token_requests" error code can be ignored.
