@@ -5,7 +5,7 @@ import { from, Observable } from 'rxjs';
 
 import { NGX_MSAL_CONFIG, MsalConfiguration } from './ngx-msal.config';
 import { MsalService } from './ngx-msal.service';
-import { mergeMap } from 'rxjs/internal/operators/mergeMap';
+import { mergeMap } from 'rxjs/operators';
 
 
 @Injectable({ providedIn: 'root' })
