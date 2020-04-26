@@ -3,16 +3,13 @@ import {
   UserAgentApplication,
   AuthenticationParameters,
   AuthResponse,
-  AuthError
+  AuthError,
 } from 'msal';
-import {
-  NGX_MSAL_CONFIG,
-  MsalConfiguration
-} from './ngx-msal.config';
+import { NGX_MSAL_CONFIG, MsalConfiguration } from './ngx-msal.config';
 import { BroadcastService } from './utils/broadcast.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class MsalService extends UserAgentApplication {
   private requestAuthParams: AuthenticationParameters;
@@ -24,10 +21,9 @@ export class MsalService extends UserAgentApplication {
   ) {
     super(coreConfig);
     this.requestAuthParams = {
-      scopes: coreConfig.framework.consentScopes
+      scopes: coreConfig.framework.consentScopes,
     };
   }
-
 
   public acquireTokenSilent(
     request: AuthenticationParameters
@@ -85,6 +81,9 @@ export class MsalService extends UserAgentApplication {
     }
   }
 
+  public urlContainsHash(url: string) {
+      return super.urlContainsHash(url);
+  }
 
   /**
    * log out
