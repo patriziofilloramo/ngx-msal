@@ -1,12 +1,11 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { AuthError, AuthResponse } from 'msal';
-import { from } from 'rxjs';
-import { Observable } from 'rxjs/internal/Observable';
-import { mergeMap } from 'rxjs/operators';
+import { from, Observable } from 'rxjs';
 
 import { NGX_MSAL_CONFIG, MsalConfiguration } from './ngx-msal.config';
 import { MsalService } from './ngx-msal.service';
+import { mergeMap } from 'rxjs/internal/operators/mergeMap';
 
 
 @Injectable({ providedIn: 'root' })

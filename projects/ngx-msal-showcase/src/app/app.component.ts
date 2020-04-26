@@ -6,10 +6,10 @@ import {
   BroadcastService,
   MsalService,
 } from 'ngx-msal-lib';
-import { Subscription } from 'rxjs/internal/Subscription';
 
 import { environment } from '../environments/environment';
 import { AppService } from './app.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
