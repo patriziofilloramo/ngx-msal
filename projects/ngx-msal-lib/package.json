@@ -1,6 +1,6 @@
 {
   "name": "ngx-msal",
-  "version": "7.1.4",
+  "version": "7.1.5",
   "author": {
     "name": "Patrizio Filloramo",
     "email": "patrizio.filloramo.work@gmail.com"
@@ -27,7 +27,7 @@
     "rxjs": "^6.3.3"
   },
   "dependencies": {
-    "msal": "^1.3.0",
+    "msal": "^1.3.1",
     "tslib": "^1.9.3"
   },
   "prettier": {

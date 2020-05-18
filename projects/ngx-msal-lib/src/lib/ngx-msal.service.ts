@@ -41,6 +41,13 @@ export class MsalService extends UserAgentApplication {
   }
 
   /**
+   * clears all access tokens in the cache
+   */
+  public clearCacheTokens(): void {
+    return super.clearCache();
+  }
+
+  /**
    * login with popup and return a promise
    */
   public loginPopup(request?: AuthenticationParameters): Promise<AuthResponse> {
