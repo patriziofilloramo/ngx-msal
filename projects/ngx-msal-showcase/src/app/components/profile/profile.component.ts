@@ -10,7 +10,7 @@ export class ProfileComponent implements OnInit {
   constructor(public appSvc: AppService) { }
 
   ngOnInit() {
-    this.appSvc.getUserData();
+    // this.appSvc.getUserData();
   }
 
 }

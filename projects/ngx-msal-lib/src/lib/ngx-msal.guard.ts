@@ -64,7 +64,8 @@ export class MsalGuard implements CanActivate {
 
     this.msalSvc.loginRedirect({
       redirectStartPage,
-      ...this.requestAuthParams});
+      scopes: this.requestAuthParams.scopes,
+      extraQueryParameters: this.requestAuthParams.extraQueryParameters});
   }
 
   canActivate(

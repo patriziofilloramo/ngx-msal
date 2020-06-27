@@ -14,9 +14,13 @@ const isIE =
 
 export const msalConfig: MsalConfiguration = {
   auth: {
-    clientId: 'YOUR_AZUREAPP_CLIENT_ID_HERE',
-    authority: 'https://login.microsoftonline.com/XXXXXXXXXXX',
-validateAuthority: true,
+    // clientId: "YOUR_AZUREAPP_CLIENT_ID_HERE",
+    // authority:
+    //   "https://login.microsoftonline.com/XXXXXXXXXXX",
+    clientId: 'aaf3f968-94f2-454f-9d58-aa4571e1c880',
+    authority:
+      'https://login.microsoftonline.com/scientificnet.onmicrosoft.com/',
+    validateAuthority: true,
     // redirectUri: 'https://localhost:4200/#/redirect',
     navigateToLoginRequestUrl: true
   },

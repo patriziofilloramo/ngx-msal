@@ -92,6 +92,10 @@ export class MsalInterceptor implements HttpInterceptor {
       self.msalSvc
         .acquireTokenSilent({ scopes })
         .then((tokenResponse: AuthResponse) => {
+          // const token = tokenResponse.tokenType === ServerHashParamKeys.ID_TOKEN ?
+          //               tokenResponse.idToken.rawIdToken
+          //             : tokenResponse.accessToken;
+
           return self.setHeader(req, tokenResponse.accessToken);
         })
         .catch((error: AuthError) => {

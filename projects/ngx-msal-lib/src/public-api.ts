@@ -9,5 +9,3 @@ export * from './lib/ngx-msal.interceptor';
 export * from './lib/ngx-msal.module';
 export * from './lib/ngx-msal.service';
 export * from './lib/utils/broadcast.service';
-
-

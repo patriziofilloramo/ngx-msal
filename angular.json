@@ -3,17 +3,22 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ngx-msal": {
+    "ngx-msal-lib": {
+      "projectType": "library",
       "root": "projects/ngx-msal-lib",
       "sourceRoot": "projects/ngx-msal-lib/src",
-      "projectType": "library",
-      "prefix": "ngx-msal",
+      "prefix": "lib",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
             "tsConfig": "projects/ngx-msal-lib/tsconfig.lib.json",
             "project": "projects/ngx-msal-lib/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ngx-msal-lib/tsconfig.lib.prod.json"
+            }
           }
         },
         "test": {
@@ -39,11 +44,11 @@
       }
     },
     "ngx-msal-showcase": {
-      "root": "projects/ngx-msal-showcase/",
-      "sourceRoot": "projects/ngx-msal-showcase/src",
       "projectType": "application",
-      "prefix": "app",
       "schematics": {},
+      "root": "projects/ngx-msal-showcase",
+      "sourceRoot": "projects/ngx-msal-showcase/src",
+      "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -53,6 +58,7 @@
             "main": "projects/ngx-msal-showcase/src/main.ts",
             "polyfills": "projects/ngx-msal-showcase/src/polyfills.ts",
             "tsConfig": "projects/ngx-msal-showcase/tsconfig.app.json",
+            "aot": true,
             "assets": [
               "projects/ngx-msal-showcase/src/favicon.ico",
               "projects/ngx-msal-showcase/src/assets"
@@ -60,8 +66,7 @@
             "styles": [
               "projects/ngx-msal-showcase/src/styles.css"
             ],
-            "scripts": [],
-            "es5BrowserSupport": true
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -76,7 +81,6 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -85,6 +89,11 @@
                   "type": "initial",
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
                 }
               ]
             }
@@ -114,14 +123,14 @@
             "polyfills": "projects/ngx-msal-showcase/src/polyfills.ts",
             "tsConfig": "projects/ngx-msal-showcase/tsconfig.spec.json",
             "karmaConfig": "projects/ngx-msal-showcase/karma.conf.js",
-            "styles": [
-              "projects/ngx-msal-showcase/src/styles.css"
-            ],
-            "scripts": [],
             "assets": [
               "projects/ngx-msal-showcase/src/favicon.ico",
               "projects/ngx-msal-showcase/src/assets"
-            ]
+            ],
+            "styles": [
+              "projects/ngx-msal-showcase/src/styles.css"
+            ],
+            "scripts": []
           }
         },
         "lint": {
@@ -129,15 +138,28 @@
           "options": {
             "tsConfig": [
               "projects/ngx-msal-showcase/tsconfig.app.json",
-              "projects/ngx-msal-showcase/tsconfig.spec.json"
+              "projects/ngx-msal-showcase/tsconfig.spec.json",
+              "projects/ngx-msal-showcase/e2e/tsconfig.json"
             ],
             "exclude": [
               "**/node_modules/**"
             ]
           }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/ngx-msal-showcase/e2e/protractor.conf.js",
+            "devServerTarget": "ngx-msal-showcase:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "ngx-msal-showcase:serve:production"
+            }
+          }
         }
       }
     }
   },
-  "defaultProject": "ngx-msal"
+  "defaultProject": "ngx-msal-lib"
 }
