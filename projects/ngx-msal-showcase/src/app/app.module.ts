@@ -31,7 +31,7 @@ export const msalConfig: MsalConfiguration = {
   framework: {
     popUp: false,
     protectedResourceMap: [['https://graph.microsoft.com', ['User.Read']]],
-    unprotectedResources: [],
+    unprotectedResources: ['https://www.microsoft.com/en-us/'],
     consentScopes: ['User.Read', 'openid'],
 
   }
