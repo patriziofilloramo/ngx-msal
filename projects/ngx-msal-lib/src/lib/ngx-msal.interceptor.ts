@@ -52,7 +52,7 @@ export class MsalInterceptor implements HttpInterceptor {
 
     if (framework.unprotectedResources.length > 0) {
       let i;
-      for (i of framework.unprotectedResources.length) {
+      for (i of framework.unprotectedResources) {
         if (url.indexOf(framework.unprotectedResources[i]) > -1) {
           scopes = [];
         }
